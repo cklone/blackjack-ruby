@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 43</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+    <span class="ruby-ivar">@shoe</span> = <span class="ruby-ivar">@player_cnt</span> = <span class="ruby-ivar">@dealer</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-ivar">@num_rounds</span> = <span class="ruby-ivar">@num_shoes</span> = <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@num_decks</span> = <span class="ruby-value">1</span>
+    <span class="ruby-ivar">@max_players</span> = <span class="ruby-value">4</span>
+    <span class="ruby-ivar">@min_bet</span> = <span class="ruby-value">1</span>
+    <span class="ruby-ivar">@max_bet</span> = <span class="ruby-value">100</span>
+    <span class="ruby-ivar">@bet_increment</span> = <span class="ruby-value">1</span>
+    <span class="ruby-ivar">@bankroll</span> = <span class="ruby-value">1000</span>
+    <span class="ruby-ivar">@hit_soft_17</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-ivar">@even_money_offered</span> = <span class="ruby-value">1</span> <span class="ruby-comment cmt"># Hate when casinos don't offer this option</span>
+    <span class="ruby-ivar">@players</span> = []
+    <span class="ruby-ivar">@broke_players</span> = []
+    <span class="ruby-ivar">@io</span> = <span class="ruby-constant">BlackJackIO</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

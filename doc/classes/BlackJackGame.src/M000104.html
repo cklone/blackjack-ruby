@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>play_round (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 225</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">play_round</span>
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">player</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@players</span>
+      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">hand</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">hands</span>
+        <span class="ruby-comment cmt"># Check for split from previous hand</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">cards</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_split</span>
+          <span class="ruby-identifier">hit_split_hand</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@play_god</span>
+          <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">play</span>(<span class="ruby-ivar">@shoe</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">can_hit</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_done</span>
+            <span class="ruby-identifier">move</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">get_players_move</span>(<span class="ruby-ivar">@dealer</span>, <span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+            <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">move</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;h&quot;</span> <span class="ruby-comment cmt"># Hit</span>
+              <span class="ruby-identifier">hit_hand</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;d&quot;</span> <span class="ruby-comment cmt"># Double down</span>
+              <span class="ruby-identifier">hit_hand</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+              <span class="ruby-identifier">player</span>.<span class="ruby-identifier">double_bet</span>(<span class="ruby-identifier">hand</span>)
+              <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">stand</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;t&quot;</span> <span class="ruby-comment cmt"># Stand</span>
+              <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">stand</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;p&quot;</span> <span class="ruby-comment cmt"># Split</span>
+              <span class="ruby-identifier">player</span>.<span class="ruby-identifier">split_hand</span>(<span class="ruby-identifier">hand</span>)
+              <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_hands</span>(<span class="ruby-identifier">player</span>)
+              <span class="ruby-identifier">hit_split_hand</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;g&quot;</span> <span class="ruby-comment cmt"># play_god mode, let god.super decide</span>
+              <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@play_god</span>
+                <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">play</span>(<span class="ruby-ivar">@shoe</span>)
+              <span class="ruby-keyword kw">else</span>
+                <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">try_again</span>
+              <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-comment cmt"># Invalid result</span>
+              <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">try_again</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_hand</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

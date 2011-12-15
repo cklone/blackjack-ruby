@@ -1,0 +1,10 @@
+There are many things left to do, so I'll start with the most important:
+1.  More unit testing, can you ever have enough?
+2.  Implement more advanced game features:
+    - Work on bj.rb to allow it to set game options like initial max_bet
+    - Offer surrender (some casinos don't even offer this)
+    - Allow users to double down for less and put up less than
+      half their bet for insurance (most casinos allow this).
+    - Allow players to have multiple hands
+3.  Make elements that could be shared with other card games more generic
+4.  Object diagram

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Card)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File Card.rb, line 39</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">suit</span>)
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@symbols</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">symbol</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@@suits</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">suit</span>)
+      <span class="ruby-ivar">@is_valid</span> = <span class="ruby-value">1</span>
+      <span class="ruby-ivar">@symbol</span> = <span class="ruby-identifier">symbol</span>
+      <span class="ruby-ivar">@suit</span> = <span class="ruby-identifier">suit</span>
+      <span class="ruby-ivar">@value</span> = <span class="ruby-ivar">@@symbols</span>[<span class="ruby-identifier">symbol</span>]
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@is_valid</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

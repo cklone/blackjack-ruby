@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: DealerHand</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">DealerHand</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/DealerHand_rb.html">
+                DealerHand.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Hand.html">
+                Hand
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Description</h1>
+<p>
+This class represents the <a href="Dealer.html">Dealer</a>&#8216;s hand.
+</p>
+<h1>Synopsis</h1>
+<pre>
+  dealers_hand = DealerHand.new
+  dealers_hand.hit_soft_17 = True # Default is False
+  dealers_hand.deal( [ Card1, Card2 ])
+  dealers_hand.play(shoe)
+  case dealers_hand.up_card.symbol
+  when &quot;A&quot;
+    puts &quot;Insurance?&quot;
+  when &quot;6&quot;
+    puts &quot;If anyone hits when they could bust, I'm leaving this table&quot;
+  ...
+</pre>
+<h1>Author</h1>
+<table>
+<tr><td valign="top">Author:</td><td>Christopher Kline (<a href="mailto:coder@cklone.com">coder@cklone.com</a>)
+
+</td></tr>
+<tr><td valign="top">Copyleft:</td><td>Copyleft 2007 Christopher Kline
+
+</td></tr>
+<tr><td valign="top">License:</td><td>Distributes under the same terms as Ruby
+
+</td></tr>
+</table>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000030">new</a>&nbsp;&nbsp;
+      <a href="#M000034">play</a>&nbsp;&nbsp;
+      <a href="#M000031">to_s</a>&nbsp;&nbsp;
+      <a href="#M000033">total</a>&nbsp;&nbsp;
+      <a href="#M000032">up_card</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">hit_soft_17</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Set this attribute to True if dealer should hit a soft 17.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+          <a href="DealerHand.src/M000030.html" target="Code" class="method-signature"
+            onclick="popupCode('DealerHand.src/M000030.html');return false;">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Initialize variables and call parent&#8216;s initialize.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="DealerHand.src/M000034.html" target="Code" class="method-signature"
+            onclick="popupCode('DealerHand.src/M000034.html');return false;">
+          <span class="method-name">play</span><span class="method-args">(shoe)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method plays the dealer&#8216;s hand based on the shoe that is passed
+in. <b>Note</b>: Whether or not the table requires a dealer to hit a soft
+17 is handled in the method <a href="DealerHand.html#M000033">total</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="DealerHand.src/M000031.html" target="Code" class="method-signature"
+            onclick="popupCode('DealerHand.src/M000031.html');return false;">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method stips the &quot;NICE&quot; on 21 for <a
+href="Dealer.html">Dealer</a>. In fact, we should replace it with
+&quot;SUCKS&quot;.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="DealerHand.src/M000033.html" target="Code" class="method-signature"
+            onclick="popupCode('DealerHand.src/M000033.html');return false;">
+          <span class="method-name">total</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Override the <a href="Hand.html#M000046">Hand.total</a> method so that we
+always get back a single value for the dealer. This method also takes into
+account hit_soft_17 to determine the dealer&#8216;s <a
+href="DealerHand.html#M000033">total</a>. <b>Note</b>: We do not want to
+just use <a href="Hand.html#M000047">Hand.total_high</a> because the dealer
+has special handling for soft 17s.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="DealerHand.src/M000032.html" target="Code" class="method-signature"
+            onclick="popupCode('DealerHand.src/M000032.html');return false;">
+          <span class="method-name">up_card</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The dealer&#8216;s first card is typically the up card. Dealers will deal
+the first card down but flip it up with the second card.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

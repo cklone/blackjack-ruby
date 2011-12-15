@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_players_move (BlackJackIO)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackIO.rb, line 335</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_players_move</span>(<span class="ruby-identifier">dealer</span>, <span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-identifier">dumb</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">result</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span> <span class="ruby-keyword kw">then</span>
+        <span class="ruby-comment cmt"># This only happens if we're playing god</span>
+        <span class="ruby-identifier">options</span> = <span class="ruby-value str">&quot;[H]it, S[T]and or let [G]od.super decide? &quot;</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">options</span> = <span class="ruby-value str">&quot;[H]it&quot;</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">can_split_hand</span>(<span class="ruby-identifier">hand</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">can_double_bet</span>
+          <span class="ruby-identifier">options</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;, S[T]and, [D]ouble or S[P]lit? &quot;</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">can_double_bet</span>
+          <span class="ruby-identifier">options</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;, S[T]and or [D]ouble? &quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">options</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot; or S[T]and? &quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;Dealer's up card / #{player.name}'s hand: [&quot;</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{dealer.hand.up_card.to_s}] / #{hand.to_s}\n&quot;</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{player.hand_to_s(hand)}: #{options}&quot;</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">gets</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">result</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;h&quot;</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bj</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-keyword kw">not</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_soft</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">total</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">17</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">dumb</span>
+            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{player.name}, I suggest you stand.&quot;</span>
+            <span class="ruby-identifier">dumb</span> = <span class="ruby-value">1</span>
+            <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{player.name}, I guess you too like to live dangerously.&quot;</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;t&quot;</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;d&quot;</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">can_double_bet</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;p&quot;</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">can_split_hand</span>(<span class="ruby-identifier">hand</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">can_double_bet</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;g&quot;</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;q&quot;</span>
+        <span class="ruby-identifier">throw</span> <span class="ruby-identifier">:quit</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;i&quot;</span>
+        <span class="ruby-identifier">instructions</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">try_again</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

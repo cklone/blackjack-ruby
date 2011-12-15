@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>play (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 74</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">play</span>
+    <span class="ruby-comment cmt"># round_started used to determine if we need to settle bets</span>
+    <span class="ruby-comment cmt"># if the user quits mid-game.</span>
+    <span class="ruby-ivar">@round_started</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-identifier">catch</span> <span class="ruby-identifier">:quit</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">init_game</span>
+
+      <span class="ruby-identifier">want_to_play</span> = <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">want_to_play</span>
+
+        <span class="ruby-comment cmt"># Create and shuffle Shoe</span>
+        <span class="ruby-ivar">@shoe</span> = <span class="ruby-constant">Shoe</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@num_decks</span>)
+        <span class="ruby-ivar">@shoe</span>.<span class="ruby-identifier">shuffle</span>
+
+        <span class="ruby-comment cmt"># Player can cut the shoe, pick a random one (excluding dealer)</span>
+        <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_shoe</span>(<span class="ruby-ivar">@shoe</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+        <span class="ruby-identifier">cut_at</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">cut_shoe</span>(<span class="ruby-ivar">@shoe</span>, <span class="ruby-ivar">@players</span>[ <span class="ruby-identifier">rand</span>(<span class="ruby-ivar">@players</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) ])
+        <span class="ruby-ivar">@shoe</span>.<span class="ruby-identifier">cut</span>(<span class="ruby-identifier">cut_at</span>)
+        <span class="ruby-keyword kw">while</span> <span class="ruby-ivar">@shoe</span>.<span class="ruby-identifier">can_play</span>(<span class="ruby-ivar">@players</span>.<span class="ruby-identifier">length</span>)
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">start_round</span>(<span class="ruby-ivar">@players</span>, <span class="ruby-ivar">@num_shoes</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-ivar">@num_rounds</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_shoe</span>(<span class="ruby-ivar">@shoe</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+          <span class="ruby-identifier">place_your_bets</span>
+          <span class="ruby-ivar">@round_started</span> = <span class="ruby-value">1</span> <span class="ruby-comment cmt"># Round is considered started after bets are in</span>
+          <span class="ruby-identifier">deal_round</span>
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_hands</span>(<span class="ruby-ivar">@players</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+          <span class="ruby-identifier">handle_insurance</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">up_card</span>.<span class="ruby-identifier">is_ace</span>
+          <span class="ruby-identifier">play_round</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bj</span>
+          <span class="ruby-identifier">settle_round</span>
+          <span class="ruby-ivar">@num_rounds</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+          <span class="ruby-ivar">@round_started</span> = <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-ivar">@num_shoes</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-identifier">want_to_play</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">want_to_play</span>(<span class="ruby-ivar">@num_shoes</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@shoe</span>
+      <span class="ruby-identifier">settle_round</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@round_started</span>
+      <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_game_results</span>(<span class="ruby-ivar">@broke_players</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@players</span>, <span class="ruby-ivar">@num_rounds</span>, <span class="ruby-ivar">@num_shoes</span>)
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">quit</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

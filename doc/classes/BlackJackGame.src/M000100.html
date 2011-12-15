@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>init_game (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 137</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">init_game</span>
+    <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">welcome_msg</span>
+    <span class="ruby-ivar">@num_decks</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">get_num_decks</span> 
+    <span class="ruby-ivar">@player_cnt</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">get_player_cnt</span>(<span class="ruby-ivar">@max_players</span>)
+    <span class="ruby-identifier">players_names</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">get_players_names</span>
+
+    <span class="ruby-comment cmt"># Initialize player objects</span>
+    <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">players_names</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@players</span>[<span class="ruby-identifier">x</span>] = <span class="ruby-constant">Player</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">players_names</span>[<span class="ruby-identifier">x</span>], <span class="ruby-ivar">@bankroll</span>)
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># Create the dealer and add as a player</span>
+    <span class="ruby-ivar">@dealer</span> = <span class="ruby-constant">Dealer</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hit_soft_17</span> = <span class="ruby-ivar">@hit_soft_17</span>
+    <span class="ruby-ivar">@players</span>[<span class="ruby-ivar">@players</span>.<span class="ruby-identifier">length</span>] = <span class="ruby-ivar">@dealer</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

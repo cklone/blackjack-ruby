@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>hit_hand (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 270</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">hit_hand</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+    <span class="ruby-identifier">card</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@play_god</span>
+      <span class="ruby-identifier">card</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">set_card</span>(<span class="ruby-ivar">@shoe</span>, <span class="ruby-identifier">player</span>, <span class="ruby-keyword kw">nil</span>)
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">card</span> = <span class="ruby-ivar">@shoe</span>.<span class="ruby-identifier">deal_card</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">hit</span>(<span class="ruby-identifier">card</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

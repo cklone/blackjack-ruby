@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Player</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Player</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/Player_rb.html">
+                Player.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Description</h1>
+<p>
+This class represnts a BlackJack player, complete with their name,
+bankroll, bet increment and hand.
+</p>
+<h1>Synopsis</h1>
+<pre>
+  player = Player.new(&quot;Bob&quot;, 1000)
+  player.bet = 100 # High roller
+  puts &quot;#{player.name}, you have #{player.bankroll} bucks.&quot;
+  if hand.has_aces
+    player.split_hand(hand) # or do you like to lose money?
+  ...
+</pre>
+<h1>Author</h1>
+<table>
+<tr><td valign="top">Author:</td><td>Christopher Kline (<a href="mailto:coder@cklone.com">coder@cklone.com</a>)
+
+</td></tr>
+<tr><td valign="top">Copyleft:</td><td>Copyleft 2007 Christopher Kline
+
+</td></tr>
+<tr><td valign="top">License:</td><td>Distributes under the same terms as Ruby
+
+</td></tr>
+</table>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000012">all_bankrolls</a>&nbsp;&nbsp;
+      <a href="#M000009">bankroll_to_s</a>&nbsp;&nbsp;
+      <a href="#M000027">can_afford_insurance</a>&nbsp;&nbsp;
+      <a href="#M000026">can_double_bet</a>&nbsp;&nbsp;
+      <a href="#M000025">can_split_hand</a>&nbsp;&nbsp;
+      <a href="#M000021">double_bet</a>&nbsp;&nbsp;
+      <a href="#M000018">finish_round</a>&nbsp;&nbsp;
+      <a href="#M000011">hand_to_s</a>&nbsp;&nbsp;
+      <a href="#M000019">has_a_hand</a>&nbsp;&nbsp;
+      <a href="#M000020">has_max_hands</a>&nbsp;&nbsp;
+      <a href="#M000028">has_multiple_hands</a>&nbsp;&nbsp;
+      <a href="#M000023">is_dealer</a>&nbsp;&nbsp;
+      <a href="#M000017">lose_insurance_bet</a>&nbsp;&nbsp;
+      <a href="#M000007">new</a>&nbsp;&nbsp;
+      <a href="#M000014">place_bet</a>&nbsp;&nbsp;
+      <a href="#M000015">place_insurance_bet</a>&nbsp;&nbsp;
+      <a href="#M000024">split_hand</a>&nbsp;&nbsp;
+      <a href="#M000013">start_hand</a>&nbsp;&nbsp;
+      <a href="#M000010">summary</a>&nbsp;&nbsp;
+      <a href="#M000008">to_s</a>&nbsp;&nbsp;
+      <a href="#M000029">total_hands</a>&nbsp;&nbsp;
+      <a href="#M000022">win_bet</a>&nbsp;&nbsp;
+      <a href="#M000016">win_insurance_bet</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MAX_HANDS</td>
+          <td>=</td>
+          <td class="context-item-value">4</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+This defines the maximum number of hands a player can have or split.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">bankroll</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">bet</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">hands</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">name</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">num_hands</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000007.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000007.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(name, bankroll)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000012.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000012.html');return false;">
+          <span class="method-name">all_bankrolls</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns the total of everyone&#8216;s bankroll
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000009.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000009.html');return false;">
+          <span class="method-name">bankroll_to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns a string in the form: Name [Bankroll].
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000027.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000027.html');return false;">
+          <span class="method-name">can_afford_insurance</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method should be used to determine if the player can put up half their
+bet for insurance.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000026.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000026.html');return false;">
+          <span class="method-name">can_double_bet</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method should be used to determine if the player can double their bet.
+Used for splits, double down or any other purpose.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000025.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000025.html');return false;">
+          <span class="method-name">can_split_hand</span><span class="method-args">(hand)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns true if the hand can be split and the player has not
+exceeded the maximum number of hands.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000021.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000021.html');return false;">
+          <span class="method-name">double_bet</span><span class="method-args">(hand)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method takes care of doubling the player&#8216;s bet.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000018.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000018.html');return false;">
+          <span class="method-name">finish_round</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method destroys a player&#8216;s hand.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000011.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000011.html');return false;">
+          <span class="method-name">hand_to_s</span><span class="method-args">(hand)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns a string for the hand in the form: Name [HandIndex]
+[HandBet] [Bankroll].
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000019.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000019.html');return false;">
+          <span class="method-name">has_a_hand</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns True if the player has at least one hand
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000020.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000020.html');return false;">
+          <span class="method-name">has_max_hands</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns True if the player has the maximum number of hands.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000028.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000028.html');return false;">
+          <span class="method-name">has_multiple_hands</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns True if the <a href="Player.html">Player</a> has
+multiple hands, nil otherwise.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000023.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000023.html');return false;">
+          <span class="method-name">is_dealer</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns True if the <a href="Player.html">Player</a> is the <a
+href="Dealer.html">Dealer</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000017.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000017.html');return false;">
+          <span class="method-name">lose_insurance_bet</span><span class="method-args">(hand)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000014.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000014.html');return false;">
+          <span class="method-name">place_bet</span><span class="method-args">(hand)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method places the player&#8216;s bet on the hand.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000015.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000015.html');return false;">
+          <span class="method-name">place_insurance_bet</span><span class="method-args">(hand, insurance_bet)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method places an insurance bet on the hand.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000024.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000024.html');return false;">
+          <span class="method-name">split_hand</span><span class="method-args">(hand)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method should be used when the player splits their hand. Send in the
+hand that should be split and this method will create and return the <a
+href="Player.html#M000007">new</a> hand.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000013.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000013.html');return false;">
+          <span class="method-name">start_hand</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method places a bet for the player. It instatiates the player&#8216;s
+hand and deducts the bet from the player&#8216;s bankroll. It returns the
+hand.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000010.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000010.html');return false;">
+          <span class="method-name">summary</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns a <a href="Player.html#M000010">summary</a> for the
+player in the form: Name [Hands Played] [Bankroll]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000008.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000008.html');return false;">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method returns a string in the form: Name [Bet] [Bankroll].
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000029.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000029.html');return false;">
+          <span class="method-name">total_hands</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the total number of hands dealt.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000022.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000022.html');return false;">
+          <span class="method-name">win_bet</span><span class="method-args">(winnings)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method adds the winnings to the player&#8216;s bankroll.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="Player.src/M000016.html" target="Code" class="method-signature"
+            onclick="popupCode('Player.src/M000016.html');return false;">
+          <span class="method-name">win_insurance_bet</span><span class="method-args">(hand, winnings)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This method is called when the player wins the insurance bet.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

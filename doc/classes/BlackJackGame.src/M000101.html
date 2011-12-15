@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>place_your_bets (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 155</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">place_your_bets</span>
+    <span class="ruby-comment cmt"># Check to see if we need to ask for bet sizes</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@num_rounds</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">need_bet_change</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">change_bet_sizes</span>
+      <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">get_players_bet_sizes</span>(<span class="ruby-ivar">@players</span>, <span class="ruby-ivar">@min_bet</span>, <span class="ruby-ivar">@max_bet</span>, <span class="ruby-ivar">@bet_increment</span>)
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">player</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@players</span>
+      <span class="ruby-identifier">player</span>.<span class="ruby-identifier">start_hand</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

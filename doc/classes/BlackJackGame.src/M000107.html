@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>settle_round (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 294</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">settle_round</span>
+    <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">prep_round_results</span>
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">player</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@players</span>
+      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">hand</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">hands</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span>
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_hands</span>(<span class="ruby-identifier">player</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-comment cmt"># This shouldn't happen unless we quit in the middle of a hand</span>
+          <span class="ruby-comment cmt"># or we're playing god.</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">total</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">17</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@play_god</span>
+            <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">play</span>(<span class="ruby-ivar">@shoe</span>)
+          <span class="ruby-keyword kw">end</span>
+  
+          <span class="ruby-comment cmt"># Use total_high in case our hand is soft</span>
+          <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">total_high</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">total</span> <span class="ruby-keyword kw">and</span> \
+            <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bust</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bust</span> <span class="ruby-keyword kw">and</span> \
+            <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bust</span>)
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bj</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_even_money</span>
+              <span class="ruby-identifier">player</span>.<span class="ruby-identifier">win_bet</span>((<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span> <span class="ruby-operator">*</span> <span class="ruby-constant">BLACKJACK_PAYS</span>) <span class="ruby-operator">+</span> \
+                <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span>)
+              <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">pay</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span> <span class="ruby-operator">*</span> <span class="ruby-constant">BLACKJACK_PAYS</span>)
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">player</span>.<span class="ruby-identifier">win_bet</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>)
+              <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">pay</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span>)
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_wins</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">total_high</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">total</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bj</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_even_money</span>
+              <span class="ruby-identifier">player</span>.<span class="ruby-identifier">win_bet</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>)
+              <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">pay</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span>)
+              <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_wins</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">player</span>.<span class="ruby-identifier">win_bet</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span>)
+              <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_pushes</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">win_bet</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">bet</span>)
+            <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_loses</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">player</span>.<span class="ruby-identifier">finish_round</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># Check to see if player is out of money, or doesn't have min_bet</span>
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">player</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@players</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">bankroll</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">bankroll</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@min_bet</span>
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_out_of_money</span>(<span class="ruby-identifier">player</span>, <span class="ruby-ivar">@min_bet</span>)
+          <span class="ruby-ivar">@broke_players</span>[<span class="ruby-ivar">@broke_players</span>.<span class="ruby-identifier">length</span>] = <span class="ruby-identifier">player</span>
+          <span class="ruby-ivar">@players</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">player</span>)
+          <span class="ruby-identifier">throw</span> <span class="ruby-identifier">:quit</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@players</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>handle_insurance (BlackJackGame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackGame.rb, line 181</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_insurance</span>
+    <span class="ruby-comment cmt"># Show dealer's hand first</span>
+    <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">show_dealers_up_card</span>(<span class="ruby-ivar">@dealer</span>)
+
+    <span class="ruby-comment cmt"># Get insurance and even money bets</span>
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">player</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@players</span>
+      <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span>
+      <span class="ruby-identifier">hand</span> = <span class="ruby-identifier">player</span>.<span class="ruby-identifier">hands</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">can_afford_insurance</span> <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bj</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@even_money_offered</span>)
+        <span class="ruby-identifier">result</span> = <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_want_insurance</span>(<span class="ruby-identifier">player</span>, <span class="ruby-ivar">@even_money_offered</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">result</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;y&quot;</span>
+          <span class="ruby-identifier">insurance_bet</span> = <span class="ruby-identifier">player</span>.<span class="ruby-identifier">bet</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>
+          <span class="ruby-identifier">player</span>.<span class="ruby-identifier">place_insurance_bet</span>(<span class="ruby-identifier">hand</span>, <span class="ruby-identifier">insurance_bet</span>)
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_places_insurance_bet</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">hand</span>)
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;e&quot;</span>
+          <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_even_money</span> = <span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bj</span>
+          <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">stand</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># Settle insurance bets (even money bets settled later)</span>
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">player</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@players</span>
+      <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">is_dealer</span>
+      <span class="ruby-identifier">hand</span> = <span class="ruby-identifier">player</span>.<span class="ruby-identifier">hands</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">insurance_bet</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">is_bj</span>
+          <span class="ruby-comment cmt"># Dealer action first, player sets insuranceBet back to 0</span>
+          <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">pay</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">insurance_bet</span> <span class="ruby-operator">*</span> <span class="ruby-constant">INSURANCE_PAYS</span>)
+          <span class="ruby-identifier">player</span>.<span class="ruby-identifier">win_insurance_bet</span>(<span class="ruby-identifier">hand</span>, (<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">insurance_bet</span> <span class="ruby-operator">*</span> \
+                                          <span class="ruby-constant">INSURANCE_PAYS</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">hand</span>.<span class="ruby-identifier">insurance_bet</span>)
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_wins_insurance</span>(<span class="ruby-identifier">player</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-comment cmt"># Dealer action first, player sets insuranceBet back to 0</span>
+          <span class="ruby-ivar">@dealer</span>.<span class="ruby-identifier">win_bet</span>(<span class="ruby-identifier">hand</span>.<span class="ruby-identifier">insurance_bet</span>)
+          <span class="ruby-identifier">player</span>.<span class="ruby-identifier">lose_insurance_bet</span>(<span class="ruby-identifier">hand</span>)
+          <span class="ruby-ivar">@io</span>.<span class="ruby-identifier">player_loses_insurance</span>(<span class="ruby-identifier">player</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

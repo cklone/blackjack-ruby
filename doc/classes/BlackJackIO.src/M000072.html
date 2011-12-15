@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>want_to_play (BlackJackIO)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File BlackJackIO.rb, line 308</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">want_to_play</span>(<span class="ruby-identifier">shoe</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">result</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-node">&quot;\nShoe #{shoe} finished.  Want to play another shoe [y|n]? &quot;</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">gets</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">result</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;y&quot;</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;n&quot;</span>, <span class="ruby-value str">&quot;q&quot;</span>
+        <span class="ruby-identifier">throw</span> <span class="ruby-identifier">:quit</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;i&quot;</span>
+        <span class="ruby-identifier">instructions</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">try_again</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

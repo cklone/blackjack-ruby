@@ -1,0 +1,146 @@
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--
+
+    Methods
+
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Methods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="rdoc-style.css" type="text/css" />
+  <base target="docwin" />
+</head>
+<body>
+<div id="index">
+  <h1 class="section-bar">Methods</h1>
+  <div id="index-entries">
+    <a href="classes/Player.html#M000012">all_bankrolls (Player)</a><br />
+    <a href="classes/Player.html#M000009">bankroll_to_s (Player)</a><br />
+    <a href="classes/Player.html#M000027">can_afford_insurance (Player)</a><br />
+    <a href="classes/Player.html#M000026">can_double_bet (Player)</a><br />
+    <a href="classes/Hand.html#M000042">can_hit (Hand)</a><br />
+    <a href="classes/Shoe.html#M000004">can_play (Shoe)</a><br />
+    <a href="classes/Hand.html#M000050">can_split (Hand)</a><br />
+    <a href="classes/Dealer.html#M000119">can_split_hand (Dealer)</a><br />
+    <a href="classes/Player.html#M000025">can_split_hand (Player)</a><br />
+    <a href="classes/BlackJackIO.html#M000069">change_bet_sizes (BlackJackIO)</a><br />
+    <a href="classes/Deck.html#M000038">cut (Deck)</a><br />
+    <a href="classes/BlackJackIO.html#M000062">cut_shoe (BlackJackIO)</a><br />
+    <a href="classes/Hand.html#M000043">deal (Hand)</a><br />
+    <a href="classes/Shoe.html#M000005">deal_card (Shoe)</a><br />
+    <a href="classes/Shoe.html#M000006">deal_hand (Shoe)</a><br />
+    <a href="classes/BlackJackGame.html#M000102">deal_round (BlackJackGame)</a><br />
+    <a href="classes/Player.html#M000021">double_bet (Player)</a><br />
+    <a href="classes/Player.html#M000018">finish_round (Player)</a><br />
+    <a href="classes/BlackJackIO.html#M000060">get_num_decks (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000061">get_player_cnt (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000065">get_players_bet_sizes (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000073">get_players_move (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000063">get_players_names (BlackJackIO)</a><br />
+    <a href="classes/Dealer.html#M000120">hand (Dealer)</a><br />
+    <a href="classes/Player.html#M000011">hand_to_s (Player)</a><br />
+    <a href="classes/BlackJackGame.html#M000103">handle_insurance (BlackJackGame)</a><br />
+    <a href="classes/Player.html#M000019">has_a_hand (Player)</a><br />
+    <a href="classes/Hand.html#M000051">has_ace (Hand)</a><br />
+    <a href="classes/Hand.html#M000052">has_aces (Hand)</a><br />
+    <a href="classes/Player.html#M000020">has_max_hands (Player)</a><br />
+    <a href="classes/Player.html#M000028">has_multiple_hands (Player)</a><br />
+    <a href="classes/Hand.html#M000044">hit (Hand)</a><br />
+    <a href="classes/BlackJackGame.html#M000105">hit_hand (BlackJackGame)</a><br />
+    <a href="classes/BlackJackGame.html#M000106">hit_split_hand (BlackJackGame)</a><br />
+    <a href="classes/BlackJackGame.html#M000100">init_game (BlackJackGame)</a><br />
+    <a href="classes/BlackJackIO.html#M000059">instructions (BlackJackIO)</a><br />
+    <a href="classes/Card.html#M000096">is_ace (Card)</a><br />
+    <a href="classes/Hand.html#M000049">is_bj (Hand)</a><br />
+    <a href="classes/Hand.html#M000041">is_bust (Hand)</a><br />
+    <a href="classes/Player.html#M000023">is_dealer (Player)</a><br />
+    <a href="classes/Hand.html#M000053">is_done (Hand)</a><br />
+    <a href="classes/Hand.html#M000048">is_soft (Hand)</a><br />
+    <a href="classes/Player.html#M000017">lose_insurance_bet (Player)</a><br />
+    <a href="classes/BlackJackGame.html#M000099">need_bet_change (BlackJackGame)</a><br />
+    <a href="classes/BlackJackIO.html#M000064">need_to_change_bet (BlackJackIO)</a><br />
+    <a href="classes/Deck.html#M000035">new (Deck)</a><br />
+    <a href="classes/DealerHand.html#M000030">new (DealerHand)</a><br />
+    <a href="classes/CardSuits.html#M000056">new (CardSuits)</a><br />
+    <a href="classes/Hand.html#M000039">new (Hand)</a><br />
+    <a href="classes/Card.html#M000093">new (Card)</a><br />
+    <a href="classes/Player.html#M000007">new (Player)</a><br />
+    <a href="classes/Shoe.html#M000002">new (Shoe)</a><br />
+    <a href="classes/Dealer.html#M000114">new (Dealer)</a><br />
+    <a href="classes/BlackJackIO.html#M000057">new (BlackJackIO)</a><br />
+    <a href="classes/CardSymbols.html#M000055">new (CardSymbols)</a><br />
+    <a href="classes/BlackJackGame.html#M000097">new (BlackJackGame)</a><br />
+    <a href="classes/Dealer.html#M000117">pay (Dealer)</a><br />
+    <a href="classes/Player.html#M000014">place_bet (Player)</a><br />
+    <a href="classes/Player.html#M000015">place_insurance_bet (Player)</a><br />
+    <a href="classes/BlackJackGame.html#M000101">place_your_bets (BlackJackGame)</a><br />
+    <a href="classes/DealerHand.html#M000034">play (DealerHand)</a><br />
+    <a href="classes/BlackJackGame.html#M000098">play (BlackJackGame)</a><br />
+    <a href="classes/BlackJackGame.html#M000104">play_round (BlackJackGame)</a><br />
+    <a href="classes/BlackJackIO.html#M000082">player_loses (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000085">player_loses_insurance (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000086">player_out_of_money (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000083">player_places_insurance_bet (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000081">player_pushes (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000071">player_want_insurance (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000080">player_wins (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000084">player_wins_insurance (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000079">prep_round_results (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000087">quit (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000075">set_card (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000074">set_hand (BlackJackIO)</a><br />
+    <a href="classes/BlackJackGame.html#M000107">settle_round (BlackJackGame)</a><br />
+    <a href="classes/TestDeck.html#M000088">setup (TestDeck)</a><br />
+    <a href="classes/BlackJackIO.html#M000070">show_dealers_up_card (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000078">show_game_results (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000068">show_hand (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000067">show_hands (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000066">show_shoe (BlackJackIO)</a><br />
+    <a href="classes/Deck.html#M000037">shuffle (Deck)</a><br />
+    <a href="classes/Hand.html#M000045">split (Hand)</a><br />
+    <a href="classes/Player.html#M000024">split_hand (Player)</a><br />
+    <a href="classes/Hand.html#M000054">stand (Hand)</a><br />
+    <a href="classes/Dealer.html#M000118">start_hand (Dealer)</a><br />
+    <a href="classes/Player.html#M000013">start_hand (Player)</a><br />
+    <a href="classes/BlackJackIO.html#M000077">start_round (BlackJackIO)</a><br />
+    <a href="classes/Player.html#M000010">summary (Player)</a><br />
+    <a href="classes/Dealer.html#M000116">summary (Dealer)</a><br />
+    <a href="classes/TestDeck.html#M000089">test_deck_card_counts (TestDeck)</a><br />
+    <a href="classes/TestDeck.html#M000090">test_deck_cards_uniq (TestDeck)</a><br />
+    <a href="classes/TestDeck.html#M000092">test_deck_cut (TestDeck)</a><br />
+    <a href="classes/TestDeck.html#M000091">test_deck_shuffle (TestDeck)</a><br />
+    <a href="classes/TestShoe.html#M000108">test_shoe_creation (TestShoe)</a><br />
+    <a href="classes/TestShoe.html#M000109">test_shoe_creation_with_exceptions (TestShoe)</a><br />
+    <a href="classes/TestShoe.html#M000111">test_shoe_cut (TestShoe)</a><br />
+    <a href="classes/TestShoe.html#M000113">test_shoe_deal_exceptions (TestShoe)</a><br />
+    <a href="classes/TestShoe.html#M000110">test_shoe_shuffled (TestShoe)</a><br />
+    <a href="classes/TestShoe.html#M000112">test_shoe_uniq_cards (TestShoe)</a><br />
+    <a href="classes/Hand.html#M000040">to_s (Hand)</a><br />
+    <a href="classes/Card.html#M000094">to_s (Card)</a><br />
+    <a href="classes/Deck.html#M000036">to_s (Deck)</a><br />
+    <a href="classes/Dealer.html#M000115">to_s (Dealer)</a><br />
+    <a href="classes/Player.html#M000008">to_s (Player)</a><br />
+    <a href="classes/DealerHand.html#M000031">to_s (DealerHand)</a><br />
+    <a href="classes/Shoe.html#M000003">to_s (Shoe)</a><br />
+    <a href="classes/Card.html#M000095">to_s_with_value (Card)</a><br />
+    <a href="classes/Hand.html#M000046">total (Hand)</a><br />
+    <a href="classes/DealerHand.html#M000033">total (DealerHand)</a><br />
+    <a href="classes/Player.html#M000029">total_hands (Player)</a><br />
+    <a href="classes/Hand.html#M000047">total_high (Hand)</a><br />
+    <a href="classes/BlackJackIO.html#M000076">try_again (BlackJackIO)</a><br />
+    <a href="classes/DealerHand.html#M000032">up_card (DealerHand)</a><br />
+    <a href="files/bj_rb.html#M000001">usage (bj.rb)</a><br />
+    <a href="classes/BlackJackIO.html#M000072">want_to_play (BlackJackIO)</a><br />
+    <a href="classes/BlackJackIO.html#M000058">welcome_msg (BlackJackIO)</a><br />
+    <a href="classes/Player.html#M000022">win_bet (Player)</a><br />
+    <a href="classes/Player.html#M000016">win_insurance_bet (Player)</a><br />
+  </div>
+</div>
+</body>
+</html>

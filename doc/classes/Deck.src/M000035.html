@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Deck)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File Deck.rb, line 32</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+    <span class="ruby-ivar">@cards</span> = []
+    <span class="ruby-identifier">symbols</span> = <span class="ruby-constant">CardSymbols</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">suits</span> = <span class="ruby-constant">CardSuits</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">suit</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">suits</span>
+      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">symbol</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">symbols</span>.<span class="ruby-identifier">keys</span>
+        <span class="ruby-ivar">@cards</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-constant">Card</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">suit</span>)
+        <span class="ruby-identifier">i</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># Very important to do this to child classes</span>
+    <span class="ruby-comment cmt"># TODO: a regular deck = Deck.new returns the new object, but a child's</span>
+    <span class="ruby-comment cmt"># super returns the suits object above (perhaps because it's the first</span>
+    <span class="ruby-comment cmt"># object defined?).  I need to go figure out this behavior.</span>
+    <span class="ruby-comment cmt"># TODO: is it good practice to always include the line below to be safe?</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

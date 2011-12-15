@@ -9,7 +9,7 @@ bj.rb --help: get Usage information
 ts_bj.rb: run the test suite (this runs all the test cases)
 tc_*.rb run an individual test case
 
-This project was based on the following specs from jeremy@rapleaf.com:
+This project was based on the following specs from jeremy at rapleaf dot com:
 
 Implement a simple game of blackjack. It may use a simple, command-line interface. The program should start by asking how many players are at the table, start each player with $1000, and allow the players to make any integer bet for each deal.
 
@@ -17,4 +17,4 @@ The program must implement the core blackjack rules, i.e. players can choose to 
 
 You are more than welcome to add any sort of functionality you like on top of these basics. We are most interested in seeing a clean codebase that we can readily understand.
 
-email coder@cklone.com for any questions.
+email coder at cklone dot com for any questions.
